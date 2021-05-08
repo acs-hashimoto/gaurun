@@ -128,7 +128,8 @@ func pushNotificationIos(req RequestGaurunNotification) error {
 func pushNotificationAndroid(req RequestGaurunNotification) error {
 	LogError.Debug("START push notification for Android")
 
-	data := map[string]interface{}{"message": req.Message}
+	// data := map[string]interface{}{"message": req.Message}
+	data := map[string]interface{}{}
 	if len(req.Extend) > 0 {
 		for _, extend := range req.Extend {
 			data[extend.Key] = extend.Value
@@ -138,6 +139,8 @@ func pushNotificationAndroid(req RequestGaurunNotification) error {
 	token := req.Tokens[0]
 
 	msg := gcm.NewMessage(data, token)
+	msg.Notification.Title = req.Title
+	msg.Notification.Body = req.Message
 	msg.CollapseKey = req.CollapseKey
 	msg.DelayWhileIdle = req.DelayWhileIdle
 	msg.TimeToLive = req.TimeToLive
