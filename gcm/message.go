@@ -21,8 +21,9 @@ type Message struct {
 }
 
 type Notification struct {
-	Title string `json:"title"`
-	Body  string `json:"body"`
+	Title       string `json:"title"`
+	Body        string `json:"body"`
+	ClickAction string `json:"click_action"`
 }
 
 // NewMessage returns a new Message with the specified payload

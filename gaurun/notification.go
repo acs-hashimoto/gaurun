@@ -31,6 +31,7 @@ type RequestGaurunNotification struct {
 	DelayWhileIdle bool   `json:"delay_while_idle,omitempty"`
 	TimeToLive     int    `json:"time_to_live,omitempty"`
 	Priority       string `json:"priority,omitempty"`
+	ClickAction    string `json:"click_action,omitempty"`
 	// iOS
 	Title            string       `json:"title,omitempty"`
 	Subtitle         string       `json:"subtitle,omitempty"`
@@ -141,6 +142,7 @@ func pushNotificationAndroid(req RequestGaurunNotification) error {
 	msg := gcm.NewMessage(data, token)
 	msg.Notification.Title = req.Title
 	msg.Notification.Body = req.Message
+	msg.Notification.ClickAction = req.ClickAction
 	msg.CollapseKey = req.CollapseKey
 	msg.DelayWhileIdle = req.DelayWhileIdle
 	msg.TimeToLive = req.TimeToLive
