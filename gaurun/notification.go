@@ -32,6 +32,7 @@ type RequestGaurunNotification struct {
 	TimeToLive     int    `json:"time_to_live,omitempty"`
 	Priority       string `json:"priority,omitempty"`
 	ClickAction    string `json:"click_action,omitempty"`
+	Tag            string `json:"tag"`
 	// iOS
 	Title            string       `json:"title,omitempty"`
 	Subtitle         string       `json:"subtitle,omitempty"`
@@ -143,6 +144,7 @@ func pushNotificationAndroid(req RequestGaurunNotification) error {
 	msg.Notification.Title = req.Title
 	msg.Notification.Body = req.Message
 	msg.Notification.ClickAction = req.ClickAction
+	msg.Notification.Tag = req.Tag
 	msg.CollapseKey = req.CollapseKey
 	msg.DelayWhileIdle = req.DelayWhileIdle
 	msg.TimeToLive = req.TimeToLive
