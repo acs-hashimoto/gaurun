@@ -27,12 +27,20 @@ func main() {
 	listenPort := flag.String("p", "", "port number or unix socket path")
 	workerNum := flag.Int64("w", 0, "number of workers for push notification")
 	queueNum := flag.Int64("q", 0, "size of internal queue for push notification")
+	accessKeyPath := flag.String("k", "", "access key file path for guran")
 	flag.Parse()
 
 	if *versionPrinted {
 		gaurun.PrintVersion()
 		return
 	}
+
+	acsKeyJson, err := gaurun.LoadAccsessKeyJson(*accessKeyPath)
+	if err != nil {
+		gaurun.LogSetupFatal(err)
+		return
+	}
+	gaurun.AccessKeyJsonData = acsKeyJson
 
 	// set default parameters
 	gaurun.ConfGaurun = gaurun.BuildDefaultConf()

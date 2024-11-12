@@ -14,6 +14,7 @@ type testResponse struct {
 }
 
 func startTestServer(t *testing.T, resp *testResponse) *httptest.Server {
+	t.Log("startTestServer call.")
 	handler := func(w http.ResponseWriter, r *http.Request) {
 		status := resp.StatusCode
 		if status == 0 || status == http.StatusOK {
@@ -92,7 +93,7 @@ func TestSend(t *testing.T) {
 		}
 
 		msg := NewMessage(map[string]interface{}{"key": "value"}, "1")
-		_, err = sender.Send(msg)
+		_, err = sender.Send(msg, []byte("dummy"))
 
 		if err != nil {
 			if tc.success {

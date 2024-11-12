@@ -64,6 +64,9 @@ type CertificatePem struct {
 }
 
 func enqueueNotifications(notifications []RequestGaurunNotification) {
+	// jsonData, _ := json.Marshal(notifications)
+	// fmt.Printf("受信JSON:%s\n", string(jsonData))
+
 	for _, notification := range notifications {
 		err := validateNotification(&notification)
 		if err != nil {
@@ -151,7 +154,7 @@ func pushNotificationAndroid(req RequestGaurunNotification) error {
 	msg.Priority = req.Priority
 
 	stime := time.Now()
-	_, err := GCMClient.Send(msg)
+	_, err := GCMClient.Send(msg, AccessKeyJsonData)
 	etime := time.Now()
 	ptime := etime.Sub(stime).Seconds()
 	if err != nil {

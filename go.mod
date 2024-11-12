@@ -10,4 +10,5 @@ require (
 	github.com/pelletier/go-toml v1.8.1
 	github.com/stretchr/testify v1.7.0
 	go.uber.org/zap v1.16.0
+	golang.org/x/oauth2 v0.23.0 // indirect
 )

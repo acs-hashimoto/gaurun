@@ -21,4 +21,6 @@ var (
 	LogError  *zap.Logger
 	// sequence ID for numbering push
 	SeqID uint64
+	// accsess key data
+	AccessKeyJsonData []byte
 )

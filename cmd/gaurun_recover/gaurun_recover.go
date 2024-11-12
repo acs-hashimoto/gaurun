@@ -21,6 +21,8 @@ import (
 var (
 	APNSClient gaurun.APNsClient
 	GCMClient  *gcm.Client
+	// accsess key data
+	AccessKeyJsonData []byte
 )
 
 func pushNotification(wg *sync.WaitGroup, req gaurun.RequestGaurunNotification, logPush gaurun.LogPushEntry) {
@@ -50,7 +52,7 @@ func pushNotificationAndroid(req gaurun.RequestGaurunNotification) bool {
 	msg.TimeToLive = req.TimeToLive
 	msg.Priority = req.Priority
 
-	_, err := GCMClient.Send(msg)
+	_, err := GCMClient.Send(msg, AccessKeyJsonData)
 	if err != nil {
 		return false
 	}
@@ -80,12 +82,20 @@ func main() {
 	versionPrinted := flag.Bool("v", false, "gaurun version")
 	confPath := flag.String("c", "", "configuration file path for gaurun")
 	logPath := flag.String("l", "", "log file path for gaurun")
+	accessKeyPath := flag.String("k", "", "access key file path for guran")
 	flag.Parse()
 
 	if *versionPrinted {
 		gaurun.PrintVersion()
 		os.Exit(0)
 	}
+
+	acsKeyJson, err := gaurun.LoadAccsessKeyJson(*accessKeyPath)
+	if err != nil {
+		gaurun.LogSetupFatal(err)
+		return
+	}
+	gaurun.AccessKeyJsonData = acsKeyJson
 
 	// set default parameters
 	gaurun.ConfGaurun = gaurun.BuildDefaultConf()

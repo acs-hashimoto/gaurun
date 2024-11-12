@@ -4,6 +4,37 @@ import (
 	"fmt"
 )
 
+type WrappedMessage struct {
+	Message MessageV1 `json:"message"`
+}
+
+type MessageV1 struct {
+	Token                 string                 `json:"token"`
+	CollapseKey           string                 `json:"collapse_key,omitempty"`
+	Notification          NotificationV1         `json:"notification"`
+	Data                  map[string]interface{} `json:"data,omitempty"`
+	DelayWhileIdle        bool                   `json:"delay_while_idle,omitempty"`
+	TimeToLive            int                    `json:"time_to_live,omitempty"`
+	Android               Android                `json:"android,omitempty"`
+	RestrictedPackageName string                 `json:"restricted_package_name,omitempty"`
+	DryRun                bool                   `json:"dry_run,omitempty"`
+}
+
+type NotificationV1 struct {
+	Title string `json:"title"`
+	Body  string `json:"body"`
+}
+
+type Android struct {
+	Notification AndroidNotification `json:"notification"`
+	Priority     string              `json:"priority,omitempty"`
+}
+
+type AndroidNotification struct {
+	ClickAction string `json:"click_action"`
+	Tag         string `json:"tag"`
+}
+
 // Message is used by the application server to send a message to
 // the FCM server. See the documentation for FCM Architectural
 // Overview for more information:

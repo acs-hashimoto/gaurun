@@ -117,7 +117,7 @@ func TestValidateNotificationWithAllowingEmptyMessage(t *testing.T) {
 func TestSendResponse(t *testing.T) {
 	s := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		sendResponse(w, "valid message", http.StatusOK)
-		return
+		//return
 	}))
 	defer s.Close()
 

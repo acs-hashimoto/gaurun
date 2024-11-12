@@ -162,3 +162,11 @@ func (s *SectionIos) IsTokenBasedProvider() bool {
 func (s *SectionIos) IsCertificateBasedProvider() bool {
 	return s.PemCertPath != "" && s.PemKeyPath != ""
 }
+
+func LoadAccsessKeyJson(accsessKeyPath string) ([]byte, error) {
+	json, err := ioutil.ReadFile(accsessKeyPath)
+	if err != nil {
+		return nil, err
+	}
+	return json, nil
+}
