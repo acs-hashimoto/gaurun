@@ -11,11 +11,11 @@ import (
 	"golang.org/x/oauth2/google"
 )
 
-const (
-	// FCMSendEndpoint is the endpoint for sending message to the Firebase Cloud Messaging (FCM) server.
-	// See more on https://firebase.google.com/docs/cloud-messaging/server
-	FCMSendEndpoint = "https://fcm.googleapis.com/v1/projects/cansukepush/messages:send"
-)
+// const (
+// FCMSendEndpoint is the endpoint for sending message to the Firebase Cloud Messaging (FCM) server.
+// See more on https://firebase.google.com/docs/cloud-messaging/server
+// FCMSendEndpoint = "https://fcm.googleapis.com/v1/projects/cansukepush/messages:send"
+// )
 
 const (
 	// fcmPushPriorityHigh and fcmPushPriorityNormal is priority of a delivery message options
@@ -175,4 +175,8 @@ func getAcsessToken(acsJsonData []byte) (*string, error) {
 	//fmt.Printf("Access Token: %s\n", token.AccessToken)
 
 	return &token.AccessToken, err
+}
+
+func MakeFCMSendEndpoint(projectID string) string {
+	return fmt.Sprintf("https://fcm.googleapis.com/v1/projects/%s/messages:send", projectID)
 }

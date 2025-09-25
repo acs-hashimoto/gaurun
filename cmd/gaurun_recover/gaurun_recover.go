@@ -169,7 +169,7 @@ func main() {
 	}
 	APNSClient.HTTPClient.Timeout = time.Duration(gaurun.ConfGaurun.Ios.Timeout) * time.Second
 
-	GCMClient, err := gcm.NewClient(gcm.FCMSendEndpoint, gaurun.ConfGaurun.Android.ApiKey)
+	GCMClient, err := gcm.NewClient(gcm.MakeFCMSendEndpoint(gaurun.ConfGaurun.Android.ProjectID), gaurun.ConfGaurun.Android.ApiKey)
 	if err != nil {
 		gaurun.LogSetupFatal(err)
 	}
